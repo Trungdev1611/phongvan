@@ -1,0 +1,61 @@
+1 
+var: có hoisting, không có blockscope, có thể bị ghi đè, có thể khai báo lại, có phạm vi globalscope và function scope
+let: có hoisting nhưng ở trong vùng deadzone, có thể bị ghi đè, không thể khai báo lại, có block scope
+const: có hoisting nhưng cũng giống như let ở trong vùng deadzone, không thể khai báo lại, không thể ghi đè, có blockscope, function scope  
+
+2. eventloop là 1 vòng lặp vô tận. Với các hoạt động bất đồng bộ như setTimeout, setInterval hay casc promise sẽ bị mất thời gian nên sẽ được chuyển cho webAPI xử lý, sau đó chuyển xuống quece (hàng đợi) và eventloop sẽ theo dõi khi nào callStack trống thì sẽ chuyển các hàm ở quece  lên callstack để xử lý
+
+3. Async là các hoạt động bất đồng bộ, Sync là hoạt động đồng bộ
+
+4. Restful API là 1 kiến trúc thiết kế API, bao gồm các phương thức như get, post, put, patch, delete
+các status http như 200, 401, 403, 500, 201, 404, 429 
+sự khác biệt giữa put và patch: put và patch đều dùng để sửa đổi dữ liệu, với put thì gửi toàn bộ dữ liệu cần sửa đổi trong khi patch thì chỉ gửi chính xác phần dữ liệu cần sửa dổi thôi
+
+5. state được dùng để lưu trữ data trong component reactjs, để thay đổi state ta dùng hàm setState. Khi setState component sẽ bị re-render. state có thể hiểu như 1 biến được khai báo trong component, state thì có thể thay đổi được
+
+props: component con sẽ nhận props từ components cha, con chỉ nhận và không thể thay đổi được props. Props có thể hiểu như là tham số trong function, khi props thay đổi component con sẽ bị render lại
+
+props thì tăng tính tái sử dụng component, bằng việc sử dụng props và truyền các giá trị khác nhau cho props thì ta đã có các component show dữ liệu khác nhau
+
+6. UseEffect, useState, useRef, UseMemo, useCallback, useReducer, UseContext
+useMemo dùng để memorize giá trị, useCallback dùng để memorize function
+
+7. Vòng đời của react
+- lúc vừa được khởi tạo componentDidmount  = useEffect []
+- lúc update lại thì là component Update   = useEffect  [a, b, c]
+- lúc thoát component thì componentUnmount  = return trong useEffect
+
+8. UseContext và Redux được dùng để quản lý state trong dự án react. Thai vì truyền props theo từng cha-con-cháu thì sử dụng redux, context ta có thể truy cập được data từ bất cứ component nào mà không bị dẫn đến props dealing
+Với các dự án nhỏ => dùng context
+Với các dự án lớn, cần luân chuyển nhiều data = > ta dùng redux
+
+9. closure trong js: function con có thể truy cập được biến trong function cha dù function cha đã bị xóa khỏi stack
+
+10. Callback là một hàm được truyền như 1 tham số trong 1 hàm khác. Truyền như vậy để khi hàm cha có kết quả, hàm con có thể lấy kết quả đó và thực thi 1 nhiệm vụ gì đó. Callback cũng dùng để xử lý bất đồng bộ
+
+Promise: Promise cũng được dùng để xử lý bất đồng bộ. Promise sinh ra để xử lý callbackhell vì callback hell gây khó khăn cho việc viết code và maintain
+Promise thì có 3 trạng thái: pending, fullfill và reject
+
+Promise nhận vào 2 đối số là resolve và reject. Khi resolve, promise sẽ được chạy vào .then, giá trị return trong .then trước sẽ được truyền vào trong .then sau. Khi reject, promise sẽ chạy vào .catch
+
+Async và await cũng được dùng để xử lý bất đồng bộ. Việc sử dụng async await cũng sẽ giúp code dễ đọc, maintain hơn. Async await là cú pháp xuất hiện trong es7, nó cũng giúp tránh promise hell
+
+nên sử dụng Promise hay async await? : Promise và async await đều có những đặc điểm và cái hay của riêng nó. Nếu như chỉ xử lý 1 promise tại 1 thời điểm thì ưu tiên sử dụng async, await. Nếu cần chạy nhiều promise cùng lúc thì Promise.all sẽ phát huy hiệu quả hơn async await
+
+11. CreatAsyncthunk là 1 function trong redux toolkit đã tích hợp sẵn thunk. Thay vì như redux thường
+khi sử dụng thunk thì ta phải dispatch data từ api lên store thì creatAsyncthunk tạo nó cho ta. Nó còn cho 3 trạng thái pending, fullfill và reject trên reducer để xử lý loading và bắt lỗi
+
+12. Orm sequelize là thay vì sử dụng các câu lệnh truy vấn sql thông thường thì ta sử dụng các câu lệnh truy vấn trong sequelize đã được tối ưu hóa để query. Nó biến các row trong database thành các object để dễ truy vấn
+
+13. setState là hàm không đồng bộ, react có xu hướng nhóm (batch) các setstate lại với nhau. Nếu setState là đồng bộ sẽ ảnh hưởng hiệu suất ứng dụng và sẽ làm ứng dụng bị treo
+
+14 .JSX là gì trình duyệt có đọc trực tiếp JSX không, nếu không thì dùng gì để đọc, DOM ảo là gì, component là gì? Oneway binding là gì  ? Tại sao cần key trong reactJS
+JSX là code html viết lẫn cùng với JS. JSX không được trình duyệt đọc trực tiếp, trình duyệt chỉ có thể đọc được HTML, CSS, JS nên nếu viết JSX phải dùng babel complie ra mã HTML, CSS, JS để trình duyệt đọc
+Dom ảo là một bản sao của DOM thật. DOM ảo nhanh hơn bới vì thay vì so sánh toàn bộ cây DOM như DOM thật thì DOM ảo chỉ so sánh những phần khác nhau để render
+Onewey binding là dữ liệu được truyền theo 1 chiều trong react, dữ liệu chỉ được truyền từ component cha xuống component con
+Cần key trong reactjs vì react dùng key property để xác định phần tử trong list, nếu không có key hoặc key trùng nhau trong list, react sẽ không nhận diện được các element trong list và gây ra bug
+
+15. useState: lưu data, quản lý data, khi data được set lại thì component re-render lại
+ useEffect: dùng để quản lý các life cycle của Hook, tùy vào các dependency là mảng rỗng, mảng có giá trị hay bỏ trông mà useEffect sẽ được hạy khác nhau
+useRef: đung để lưu trữ giá trị qua các lần render của component, hoặc cũng có thể được gán vào dom 
+useReducer: cũng để dùng lưu trữ quản lý data như useState nhưng thay vì dùng nhiều useState thì dùng useReducer sẽ gọn hơn, useReducer tận dụng cơ chế giống như của redux, user tương tác dispatch 1 action, action được dispatch bắn lên store, reducer ở store xử lý state dựa trên action.type và trả ra state mới, => state mới được trả ra thì component re-render
